@@ -1,6 +1,4 @@
 package de.htw_berlin.studymatch.backend.model;
-
-
 import lombok.*;
 
 @Getter
