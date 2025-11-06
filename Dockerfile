@@ -3,7 +3,7 @@ COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
 
-LABLE org.name="Study Match"
+LABEL org.name="Study Match"
 
 
 FROM eclipse-temurin:25-jdk-alpine
