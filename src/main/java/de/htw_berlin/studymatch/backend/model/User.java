@@ -10,7 +10,6 @@ public class User {
     @Setter(AccessLevel.NONE)
     private Long uid;
     private String vorname;
-    private String nachname;
     private String email;
     private String passwort;
 }
