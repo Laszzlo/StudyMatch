@@ -11,18 +11,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table
-
+@Table(name = "likes")
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User fromUserId;
+    @JoinColumn(name = "from_user_id", nullable = false)
+    private User fromUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User toUserId;
+    @JoinColumn(name = "to_user_id", nullable = false)
+    private User toUser;
 
     @Column (name = "created_at")
     private LocalDateTime createdAt;

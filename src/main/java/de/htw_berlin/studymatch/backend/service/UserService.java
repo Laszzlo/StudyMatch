@@ -22,7 +22,7 @@ public class UserService {
 
     private UserResponse toResponse(User user){
         return new UserResponse(
-                user.getUid(),
+                user.getId(),
                 user.getVorname(),
                 user.getEmail()
         );
@@ -36,7 +36,7 @@ public class UserService {
     }
     @Transactional
     public UserResponse addUser(UserRequest request){
-        Optional<User> existing = userRepository.findByUid(request.uid());
+        Optional<User> existing = userRepository.findById(request.uid());
         if(existing.isEmpty()){
             return null;
         }
