@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.dialect.function.DB2SubstringFunction;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 @Setter
 @AllArgsConstructor
 public class UserService {
+
+    private final PasswordEncoder passwordEncoder;
 
     private UserResponse toResponse(User user){
         return new UserResponse(
@@ -35,13 +37,14 @@ public class UserService {
                 .collect(Collectors.toList());
     }
     @Transactional
-    public UserResponse addUser(UserRequest request){
-        Optional<User> existing = userRepository.findById(request.uid());
+    public UserResponse createUser(UserRequest request){
+        Optional<User> existing = userRepository.findById(request.id());
         if(existing.isEmpty()){
+            String hashedPassword = passwordEncoder.encode(request.password());
             User newUser = User.builder()
                     .vorname(request.vorname())
                     .email(request.email())
-                    .passwort("1234").build();
+                    .passwort(hashedPassword).build();
 
             User saved = userRepository.save(newUser);
             return toResponse(saved);

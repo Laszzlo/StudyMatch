@@ -1,7 +1,8 @@
 package de.htw_berlin.studymatch.backend.controller.dto;
 
 public record UserRequest(
-   Long uid,
+   Long id,
    String vorname,
-   String email
+   String email,
+   String password
 ) {}
