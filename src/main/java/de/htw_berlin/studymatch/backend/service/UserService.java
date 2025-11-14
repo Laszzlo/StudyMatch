@@ -38,8 +38,15 @@ public class UserService {
     public UserResponse addUser(UserRequest request){
         Optional<User> existing = userRepository.findById(request.uid());
         if(existing.isEmpty()){
-            return null;
+            User newUser = User.builder()
+                    .vorname(request.vorname())
+                    .email(request.email())
+                    .passwort("1234").build();
+
+            User saved = userRepository.save(newUser);
+            return toResponse(saved);
+        } else {
+            return toResponse(existing.get());
         }
-        return null;
     }
 }
