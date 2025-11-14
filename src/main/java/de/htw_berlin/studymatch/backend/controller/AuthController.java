@@ -1,28 +1,24 @@
 package de.htw_berlin.studymatch.backend.controller;
+
 import de.htw_berlin.studymatch.backend.controller.dto.UserRequest;
 import de.htw_berlin.studymatch.backend.controller.dto.UserResponse;
-import jakarta.validation.Valid;
 import de.htw_berlin.studymatch.backend.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.List;
-
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/auth")
 @AllArgsConstructor
-public class UserController {
+public class AuthController {
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getUser(){
-        List<UserResponse> user = userService.getAllUser();
-        return ResponseEntity.ok(user);
-    }
-    @PostMapping("auth/register")
+    @PostMapping("/register")
     public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request){
         UserResponse created = userService.createUser(request);
         URI location = URI.create("/api/user/" + created.id());
