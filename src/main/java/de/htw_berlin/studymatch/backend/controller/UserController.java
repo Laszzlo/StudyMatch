@@ -22,10 +22,4 @@ public class UserController {
         List<UserResponse> user = userService.getAllUser();
         return ResponseEntity.ok(user);
     }
-    @PostMapping("auth/register")
-    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest request){
-        UserResponse created = userService.createUser(request);
-        URI location = URI.create("/api/user/" + created.id());
-        return ResponseEntity.created(location).body(created);
-    }
 }
