@@ -26,7 +26,8 @@ public class UserService {
         return new UserResponse(
                 user.getId(),
                 user.getVorname(),
-                user.getEmail()
+                user.getEmail(),
+                user.getImg()
         );
     }
     private final UserRepository userRepository;
@@ -44,7 +45,8 @@ public class UserService {
             User newUser = User.builder()
                     .vorname(request.vorname())
                     .email(request.email())
-                    .passwort(hashedPassword).build();
+                    .passwort(hashedPassword)
+                    .img(request.img()).build();
 
             User saved = userRepository.save(newUser);
             return toResponse(saved);
