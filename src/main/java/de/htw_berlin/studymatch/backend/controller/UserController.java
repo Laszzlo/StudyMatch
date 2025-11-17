@@ -1,14 +1,9 @@
 package de.htw_berlin.studymatch.backend.controller;
-import de.htw_berlin.studymatch.backend.controller.dto.UserRequest;
 import de.htw_berlin.studymatch.backend.controller.dto.UserResponse;
-import jakarta.validation.Valid;
 import de.htw_berlin.studymatch.backend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 import java.util.List;
 
 @RestController

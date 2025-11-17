@@ -38,7 +38,7 @@ public class UserService {
     }
     @Transactional
     public UserResponse createUser(UserRequest request){
-        Optional<User> existing = userRepository.findById(request.id());
+        Optional<User> existing = userRepository.findByEmail(request.email());
         if(existing.isEmpty()){
             String hashedPassword = passwordEncoder.encode(request.password());
             User newUser = User.builder()
