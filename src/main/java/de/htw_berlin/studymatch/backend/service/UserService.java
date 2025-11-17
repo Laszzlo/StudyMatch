@@ -40,7 +40,7 @@ public class UserService {
     public UserResponse createUser(UserRequest request){
         Optional<User> existing = userRepository.findByEmail(request.email());
         if(existing.isEmpty()){
-            String hashedPassword = passwordEncoder.encode(request.password());
+            String hashedPassword = passwordEncoder.encode(request.passwort());
             User newUser = User.builder()
                     .vorname(request.vorname())
                     .email(request.email())
