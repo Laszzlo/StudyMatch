@@ -1,5 +1,4 @@
 package de.htw_berlin.studymatch.backend.service;
-import de.htw_berlin.studymatch.backend.controller.dto.UserRequest;
 import de.htw_berlin.studymatch.backend.controller.dto.UserResponse;
 import de.htw_berlin.studymatch.backend.model.User;
 import de.htw_berlin.studymatch.backend.repository.UserRepository;
@@ -26,7 +25,7 @@ public class UserService {
         return new UserResponse(
                 user.getId(),
                 user.getVorname(),
-                user.getEmail(),
+                user.getUsername(),
                 user.getImg()
         );
     }
@@ -36,22 +35,5 @@ public class UserService {
         return users.stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
-    }
-    @Transactional
-    public UserResponse createUser(UserRequest request){
-        Optional<User> existing = userRepository.findByEmail(request.email());
-        if(existing.isEmpty()){
-            String hashedPassword = passwordEncoder.encode(request.passwort());
-            User newUser = User.builder()
-                    .vorname(request.vorname())
-                    .email(request.email())
-                    .passwort(hashedPassword)
-                    .img(request.img()).build();
-
-            User saved = userRepository.save(newUser);
-            return toResponse(saved);
-        } else {
-            return toResponse(existing.get());
-        }
     }
 }

@@ -17,9 +17,11 @@ public class User {
     @Column(nullable = false)
     private String vorname;
     @Column(nullable = false, unique = true)
-    private String email;
+    private String username;
     @Column(nullable = false)
-    private String passwort;
+    private String password;
     @Column
     private String img;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

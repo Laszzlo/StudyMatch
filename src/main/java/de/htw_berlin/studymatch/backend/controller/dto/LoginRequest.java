@@ -1,4 +1,8 @@
 package de.htw_berlin.studymatch.backend.controller.dto;
 
-public class LoginRequest {
-}
+import jakarta.validation.constraints.NotNull;
+
+public record LoginRequest (
+        @NotNull String username,
+        @NotNull String password
+){}
