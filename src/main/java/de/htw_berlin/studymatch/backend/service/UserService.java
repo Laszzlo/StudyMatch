@@ -26,7 +26,8 @@ public class UserService {
                 user.getId(),
                 user.getVorname(),
                 user.getUsername(),
-                user.getImg()
+                user.getImg(),
+                user.getRole()
         );
     }
     private final UserRepository userRepository;
