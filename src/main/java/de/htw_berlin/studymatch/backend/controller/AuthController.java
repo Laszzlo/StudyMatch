@@ -28,7 +28,7 @@ public class AuthController {
                 request.img(),
                 request.role()
         );
-        URI location = URI.create("/api/user/" + created.getId());
+        URI location = URI.create("/api/users/" + created.getId());
         return ResponseEntity.created(location).body(
                 new RegisterResponse(
                         created.getId(),
