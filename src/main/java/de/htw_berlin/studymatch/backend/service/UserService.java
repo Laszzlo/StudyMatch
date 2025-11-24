@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +38,12 @@ public class UserService {
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
+    public UserResponse deleteUser(String username){
+        User users = userRepository.findByUsername(username)
+                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+
+        userRepository.delete(users);
+        return toResponse(users);
+    }
+
 }
