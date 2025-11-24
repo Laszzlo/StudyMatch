@@ -20,9 +20,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping
-    public ResponseEntity<UserResponse> deleteUser(@RequestBody UserRequest userRequest){
-        UserResponse user = userService.deleteUser(userRequest.username());
+    @DeleteMapping("{username}/delete")
+    public ResponseEntity<UserResponse> deleteUser(@PathVariable("username") String username){
+        UserResponse user = userService.deleteUser(username);
         return ResponseEntity.ok(user);
     }
 }
