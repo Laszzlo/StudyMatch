@@ -36,4 +36,9 @@ public class Match {
     @Enumerated(EnumType.STRING)
     @Column (name = "match_status", nullable = false)
     private MatchStatus matchStatus;
+
+    @PrePersist
+    public void onCreate(){
+        this.createdAt=LocalDateTime.now();
+    }
 }

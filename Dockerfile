@@ -6,5 +6,5 @@ RUN gradle build  -x test --no-daemon
 LABEL org.name="StudyMatch"
 
 FROM eclipse-temurin:25-jdk-jammy
-COPY --from=build /home/gradle/src/build/libs/StudyMatch-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /home/gradle/src/build/libs/StudyMatch-backend-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]

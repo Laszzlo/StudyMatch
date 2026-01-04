@@ -3,6 +3,7 @@ package de.htw_berlin.studymatch.backend.controller;
 import de.htw_berlin.studymatch.backend.controller.dto.*;
 import de.htw_berlin.studymatch.backend.model.User;
 import de.htw_berlin.studymatch.backend.service.AuthService;
+import de.htw_berlin.studymatch.backend.service.ProfileService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,34 +15,30 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
-@CrossOrigin
 public class AuthController {
     private final AuthService authService;
-
+    private final ProfileService profileService;
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request){
         User created = authService.register(
-                request.vorname(),
                 request.username(),
-                request.password(),
-                request.img(),
-                request.role()
+                request.password()
         );
+        profileService.createProfile(created.getId());
         URI location = URI.create("/api/users/" + created.getId());
         return ResponseEntity.created(location).body(
                 new RegisterResponse(
                         created.getId(),
-                        created.getVorname(),
-                        created.getUsername(),
-                        created.getRole()
+                        created.getUsername()
                 )
         );
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<LoginResponse> loginResonseResponseEntity(@RequestBody LoginRequest request){
-//        LoginResponse response = authService.login(request.username(), request.password());
-//        return ResponseEntity.ok(response);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
+        LoginResponse response = authService.login(request.username(), request.password());
+        System.out.println(response.token());
+        return ResponseEntity.ok(response);
+    }
 }

@@ -4,8 +4,7 @@ import de.htw_berlin.studymatch.backend.model.Role;
 
 public record UserResponse(
    Long id,
-   String vorname,
    String username,
-   String img,
-   Role role
+   Role role,
+   ProfileResponse profile
 ) {}

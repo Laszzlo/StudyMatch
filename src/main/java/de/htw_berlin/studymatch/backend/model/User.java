@@ -1,6 +1,11 @@
 package de.htw_berlin.studymatch.backend.model;
+
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Length;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,14 +19,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
-    private String vorname;
-    @Column(nullable = false, unique = true)
     private String username;
+
     @Column(nullable = false)
+    @Length(min = 6)
     private String password;
-    @Column
-    private String img;
+
     @Enumerated(EnumType.STRING)
+    @Column
     private Role role;
+
+    @Column(name = "created_at")
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
